@@ -1,0 +1,109 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "1784220388924651bc": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_5f39306_dwjwxQ": {
+          "type": "ai_gen_block_5f39306",
+          "disabled": true,
+          "settings": {
+            "heading": "Our Mission",
+            "subheading": "Preserving heritage, empowering artisans",
+            "heading_size": 32,
+            "subheading_size": 16,
+            "text_alignment": "center",
+            "card_1_title": "Celebrating Indian craftsmanship",
+            "card_1_text": "<p>In an age of mass production and AI-driven automation, we believe in the irreplaceable value of human touch. Each handcrafted piece tells a story of tradition, skill, and cultural heritage passed down through generations.</p>",
+            "card_2_title": "Empowering artisans",
+            "card_2_text": "<p>We partner directly with skilled artisans across India, ensuring fair compensation and sustainable livelihoods. By connecting their craft with conscious consumers, we help preserve traditional art forms while supporting local communities.</p>",
+            "card_3_title": "Bridging tradition and modernity",
+            "card_3_text": "<p>While technology shapes our world, we use it to amplify—not replace—human creativity. Our platform brings centuries-old craftsmanship to your doorstep, proving that authentic, handmade beauty has a timeless place in modern life.</p>",
+            "columns_desktop": 3,
+            "desktop_width_percent": 100,
+            "content_max_width": 1200,
+            "section_padding": 40,
+            "card_text_alignment": "center",
+            "card_title_size": 18,
+            "card_text_size": 14,
+            "card_padding": 25,
+            "card_border_radius": 8,
+            "card_border_thickness": 1,
+            "icon_size": 50,
+            "background_color": "#a18557",
+            "heading_color": "#4d1513",
+            "text_color": "#4d1513",
+            "card_background_color": "#f8f1ed",
+            "card_border_color": "#f8f1ed",
+            "icon_background_color": "#4d1513",
+            "icon_color": "#f8f1ed"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_5f39306_dwjwxQ"
+      ],
+      "custom_css": [],
+      "settings": {}
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "brand_information_yyhDde": {
+          "type": "brand_information",
+          "settings": {
+            "show_social": true
+          }
+        },
+        "link_list_FYz67n": {
+          "type": "link_list",
+          "settings": {
+            "heading": "THE COMPANY",
+            "menu": "footer"
+          }
+        },
+        "link_list_rrDNk6": {
+          "type": "link_list",
+          "settings": {
+            "heading": "ORDERS AND SUPPORT",
+            "menu": "orders-support"
+          }
+        }
+      },
+      "block_order": [
+        "brand_information_yyhDde",
+        "link_list_FYz67n",
+        "link_list_rrDNk6"
+      ],
+      "settings": {
+        "color_scheme": "scheme-4bb39d68-9c55-4ef2-9997-e09e035f9a69",
+        "newsletter_enable": false,
+        "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 60,
+        "padding_bottom": 24
+      }
+    }
+  },
+  "order": [
+    "1784220388924651bc",
+    "footer"
+  ]
+}

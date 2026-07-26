@@ -1,0 +1,127 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "body"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "custom_liquid_b3Jh7k": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% liquid\n  assign dim = product.metafields.custom.dimensions.value\n  if product.metafields.custom.dimensions.type contains 'list.'\n    assign dim = dim | join: ', '\n  endif\n\n  assign wt = product.metafields.custom.weight.value\n  if product.metafields.custom.weight.type contains 'list.'\n    assign wt = wt | join: ', '\n  endif\n\n  assign finish = product.metafields.custom.finish.value\n  if product.metafields.custom.finish.type contains 'list.'\n    assign finish = finish | join: ', '\n  endif\n  if finish == blank\n    assign finish = product.metafields.shopify.finish.value | map: 'name' | join: ', '\n  endif\n\n  assign material = product.metafields.shopify.material.value | map: 'name' | join: ', '\n  assign color = product.metafields.shopify.color-pattern.value | map: 'name' | join: ', '\n%}\n{% if dim != blank or wt != blank or finish != blank or material != blank or color != blank %}\n<details style=\"border-top: 1px solid rgba(0,0,0,0.08); padding: 1.2rem 0;\">\n  <summary style=\"display: flex; align-items: center; justify-content: space-between; cursor: pointer; list-style: none;\">\n    <span style=\"font-size: 1.8rem;\">Specifications</span>\n    <span aria-hidden=\"true\" style=\"font-size: 1.4rem;\">&#8722;</span>\n  </summary>\n  <div style=\"padding-top: 1rem;\">\n    {% if dim != blank %}\n      <p><strong>Dimension:</strong> {{ dim }}</p>\n    {% endif %}\n    {% if wt != blank %}\n      <p><strong>Weight:</strong> {{ wt }}</p>\n    {% endif %}\n    {% if finish != blank %}\n      <p><strong>Finish:</strong> {{ finish }}</p>\n    {% endif %}\n    {% if material != blank %}\n      <p><strong>Material:</strong> {{ material }}</p>\n    {% endif %}\n    {% if color != blank %}\n      <p><strong>Color:</strong> {{ color }}</p>\n    {% endif %}\n  </div>\n</details>\n{% endif %}"
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "text",
+        "title",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
+        "custom_liquid_b3Jh7k",
+        "share"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 44
+      }
+    },
+    "disclosures": {
+      "type": "disclosures",
+      "settings": {
+        "heading": "Disclosures",
+        "heading_size": "h2",
+        "open_by_default": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 68
+      }
+    }
+  },
+  "order": [
+    "main",
+    "disclosures",
+    "related-products"
+  ]
+}
