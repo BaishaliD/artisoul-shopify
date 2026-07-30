@@ -1,38 +1,24 @@
 {%- comment -%}
   Styled in Your Space — collapsible image grid on the product page.
 
-  PRODUCTION path (when metafields are live):
-    product.metafields.custom.styled_settings.value
-    Each metaobject entry has:
-      .image   → file_reference (Shopify-hosted image)
-      .title   → single_line_text
-      .caption → single_line_text
+  Data source:
+    product.metafields.custom.styled_settings — list.metaobject_reference
+    Each `styled_setting` entry is read via .value on each field:
+      .image.value   → file_reference (Shopify-hosted image)
+      .title.value   → single_line_text
+      .caption.value → single_line_text
 
-  PLACEHOLDER path (current):
-    Hardcoded array mirrors the metaobject structure.
-    When metafields are configured on the product, the placeholder branch
-    is automatically bypassed — no other code change needed.
+  Renders nothing when the metafield is empty.
 
   Lightbox: uses the theme's existing ModalDialog / ModalOpener custom elements
   (defined in global.js, loaded on every page). No extra JS needed.
 {%- endcomment -%}
 
-{%- liquid
-  assign siys_entries = product.metafields.custom.styled_settings.value
+{%- assign siys_entries = product.metafields.custom.styled_settings.value -%}
 
-  if siys_entries == blank
-    assign siys_use_placeholder = true
-    assign siys_total = 5
-  else
-    assign siys_use_placeholder = false
-    assign siys_total = siys_entries | size
-  endif
-
-  assign siys_last_index = siys_total | minus: 1
--%}
-
-{%- comment -%} Placeholder data — same shape as the metaobject loop below {%- endcomment -%}
-{%- assign siys_ph = "The Modern Minimalist Entryway|A statement piece for your minimal entryway. Float white flowers for a calming welcome.|https://drive.google.com/thumbnail?id=1z6znYBlw3IoLeZQVIKLCyMFi9nY1HjD9&sz=w800;;The Spa-inspired Bathroom|Transform your bath into a sanctuary. Add a floating candle for instant ambiance.|https://drive.google.com/thumbnail?id=1XXec7pCRMXIDBoKhc7uLoFQlSlCdAZwN&sz=w800;;The Al Fresco Verandah|A work of art in any orientation. Use it inverted as a dramatic pedestal planter for sculptural air plants.|https://drive.google.com/thumbnail?id=1sj1Smyxdc2K5UPQMJAoWV_j1_CDXvK-p&sz=w800;;The Bohemian Living Room Corner|Go Boho. Use your Urli as a base for beautiful, oversized dried botanicals.|https://drive.google.com/thumbnail?id=13K2icD3fSyhbB5gXRPR-7oML-HNTFAL_&sz=w800;;The Festive Gathering|The heart of your home during festivals. A traditional centerpiece of light and flowers.|https://cdn.shopify.com/s/files/1/0779/9341/0738/files/brass_urli_1.png?v=1784219050" | split: ";;" -%}
+{%- if siys_entries == blank -%}
+  {%- comment -%} No styled settings configured on this product — render nothing {%- endcomment -%}
+{%- else -%}
 
 <div class="product__accordion accordion quick-add-hidden siys-accordion" {{ block.shopify_attributes }}>
   <details id="Details-{{ block.id }}-{{ section.id }}" open>
@@ -51,20 +37,10 @@
       {%- endif -%}
 
       <div class="siys-grid">
-        {%- for i in (0..siys_last_index) -%}
-          {%- comment -%} Resolve tile data from placeholder or metafield {%- endcomment -%}
-          {%- if siys_use_placeholder -%}
-            {%- assign _raw         = siys_ph[forloop.index0] -%}
-            {%- assign _parts       = _raw | split: "|" -%}
-            {%- assign tile_title   = _parts[0] -%}
-            {%- assign tile_caption = _parts[1] -%}
-            {%- assign tile_img_url = _parts[2] -%}
-          {%- else -%}
-            {%- assign _entry       = siys_entries[forloop.index0] -%}
-            {%- assign tile_title   = _entry.title -%}
-            {%- assign tile_caption = _entry.caption -%}
-            {%- assign tile_img_url = _entry.image | image_url: width: 800 -%}
-          {%- endif -%}
+        {%- for siys_item in siys_entries -%}
+          {%- assign tile_title   = siys_item.title.value -%}
+          {%- assign tile_caption = siys_item.caption.value -%}
+          {%- assign tile_img_url = siys_item.image.value | image_url: width: 800 -%}
 
           {%- assign modal_id = 'SiysModal-' | append: block.id | append: '-' | append: forloop.index0 -%}
 
@@ -118,3 +94,5 @@
     </div>
   </details>
 </div>
+
+{%- endif -%}

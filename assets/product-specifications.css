@@ -1,7 +1,3 @@
-.product__accordion.accordion {
-  border-bottom: none;
-}
-
 .product__accordion .accordion__title {
   font-size: calc(var(--font-heading-scale) * 1.5rem + 0.2rem);
 }

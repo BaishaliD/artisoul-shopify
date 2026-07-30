@@ -16,6 +16,20 @@
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
 
+  {%- comment -%}
+    Custom block styles. Loaded here rather than beside each block so the <link>
+    elements don't sit between sibling .accordion divs — that would break Dawn's
+    `.accordion + .accordion { border-top: none }` divider rule.
+  {%- endcomment -%}
+  {%- assign spec_blocks = section.blocks | where: 'type', 'specifications' -%}
+  {%- if spec_blocks.size > 0 -%}
+    {{ 'product-specifications.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
+  {%- assign siys_blocks = section.blocks | where: 'type', 'styled_in_your_space' -%}
+  {%- if siys_blocks.size > 0 -%}
+    {{ 'styled-in-your-space.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
+
   {% unless product.has_only_default_variant %}
     {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
     {{ 'component-swatch-input.css' | asset_url | stylesheet_tag }}
@@ -211,12 +225,10 @@
                 {%- when 'custom_liquid' -%}
                   {{ block.settings.custom_liquid }}
                 {%- when 'specifications' -%}
-                  {{ 'product-specifications.css' | asset_url | stylesheet_tag }}
                   {%- render 'product-specifications', block: block -%}
                 {%- when 'product_story' -%}
                   {%- render 'product-story', block: block -%}
                 {%- when 'styled_in_your_space' -%}
-                  {{ 'styled-in-your-space.css' | asset_url | stylesheet_tag }}
                   {%- render 'styled-in-your-space', block: block -%}
                 {%- when 'collapsible_tab' -%}
                   <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
