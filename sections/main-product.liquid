@@ -16,6 +16,20 @@
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
 
+  {%- comment -%}
+    Custom block styles. Loaded here rather than beside each block so the <link>
+    elements don't sit between sibling .accordion divs — that would break Dawn's
+    `.accordion + .accordion { border-top: none }` divider rule.
+  {%- endcomment -%}
+  {%- assign spec_blocks = section.blocks | where: 'type', 'specifications' -%}
+  {%- if spec_blocks.size > 0 -%}
+    {{ 'product-specifications.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
+  {%- assign siys_blocks = section.blocks | where: 'type', 'styled_in_your_space' -%}
+  {%- if siys_blocks.size > 0 -%}
+    {{ 'styled-in-your-space.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
+
   {% unless product.has_only_default_variant %}
     {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
     {{ 'component-swatch-input.css' | asset_url | stylesheet_tag }}
@@ -210,6 +224,12 @@
                   </p>
                 {%- when 'custom_liquid' -%}
                   {{ block.settings.custom_liquid }}
+                {%- when 'specifications' -%}
+                  {%- render 'product-specifications', block: block -%}
+                {%- when 'product_story' -%}
+                  {%- render 'product-story', block: block -%}
+                {%- when 'styled_in_your_space' -%}
+                  {%- render 'styled-in-your-space', block: block -%}
                 {%- when 'collapsible_tab' -%}
                   <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
                     <details id="Details-{{ block.id }}-{{ section.id }}">
@@ -2142,6 +2162,51 @@
           "default": "t:sections.main-product.blocks.icon_with_text.settings.heading_3.default",
           "label": "t:sections.main-product.blocks.icon_with_text.settings.heading_3.label",
           "info": "t:sections.main-product.blocks.icon_with_text.settings.heading.info"
+        }
+      ]
+    },
+    {
+      "type": "specifications",
+      "name": "Specifications",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Specifications"
+        }
+      ]
+    },
+    {
+      "type": "product_story",
+      "name": "Product Story",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Product Story"
+        }
+      ]
+    },
+    {
+      "type": "styled_in_your_space",
+      "name": "Styled in Your Space",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Styled in Your Space"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "See it in different settings"
         }
       ]
     }

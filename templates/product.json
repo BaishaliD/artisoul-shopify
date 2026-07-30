@@ -49,10 +49,23 @@
           "type": "description",
           "settings": {}
         },
-        "custom_liquid_b3Jh7k": {
-          "type": "custom_liquid",
+        "product_story_1": {
+          "type": "product_story",
           "settings": {
-            "custom_liquid": "{% liquid\n  assign dim = product.metafields.custom.dimensions.value\n  if product.metafields.custom.dimensions.type contains 'list.'\n    assign dim = dim | join: ', '\n  endif\n\n  assign wt = product.metafields.custom.weight.value\n  if product.metafields.custom.weight.type contains 'list.'\n    assign wt = wt | join: ', '\n  endif\n\n  assign finish = product.metafields.custom.finish.value\n  if product.metafields.custom.finish.type contains 'list.'\n    assign finish = finish | join: ', '\n  endif\n  if finish == blank\n    assign finish = product.metafields.shopify.finish.value | map: 'name' | join: ', '\n  endif\n\n  assign material = product.metafields.shopify.material.value | map: 'name' | join: ', '\n  assign color = product.metafields.shopify.color-pattern.value | map: 'name' | join: ', '\n%}\n{% if dim != blank or wt != blank or finish != blank or material != blank or color != blank %}\n<details style=\"border-top: 1px solid rgba(0,0,0,0.08); padding: 1.2rem 0;\">\n  <summary style=\"display: flex; align-items: center; justify-content: space-between; cursor: pointer; list-style: none;\">\n    <span style=\"font-size: 1.8rem;\">Specifications</span>\n    <span aria-hidden=\"true\" style=\"font-size: 1.4rem;\">&#8722;</span>\n  </summary>\n  <div style=\"padding-top: 1rem;\">\n    {% if dim != blank %}\n      <p><strong>Dimension:</strong> {{ dim }}</p>\n    {% endif %}\n    {% if wt != blank %}\n      <p><strong>Weight:</strong> {{ wt }}</p>\n    {% endif %}\n    {% if finish != blank %}\n      <p><strong>Finish:</strong> {{ finish }}</p>\n    {% endif %}\n    {% if material != blank %}\n      <p><strong>Material:</strong> {{ material }}</p>\n    {% endif %}\n    {% if color != blank %}\n      <p><strong>Color:</strong> {{ color }}</p>\n    {% endif %}\n  </div>\n</details>\n{% endif %}"
+            "heading": "Product Story"
+          }
+        },
+        "styled_in_your_space_1": {
+          "type": "styled_in_your_space",
+          "settings": {
+            "heading": "Styled in Your Space",
+            "subheading": ""
+          }
+        },
+        "specifications_1": {
+          "type": "specifications",
+          "settings": {
+            "heading": "Specifications"
           }
         },
         "share": {
@@ -70,7 +83,9 @@
         "quantity_selector",
         "buy_buttons",
         "description",
-        "custom_liquid_b3Jh7k",
+        "specifications_1",
+        "product_story_1",
+        "styled_in_your_space_1",
         "share"
       ],
       "settings": {
