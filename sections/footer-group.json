@@ -62,9 +62,7 @@
       "blocks": {
         "brand_information_yyhDde": {
           "type": "brand_information",
-          "settings": {
-            "show_social": true
-          }
+          "settings": {}
         },
         "link_list_FYz67n": {
           "type": "link_list",
