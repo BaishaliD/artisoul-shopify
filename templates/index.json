@@ -15,7 +15,7 @@
         "slide_NUHQXy": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/Jul_24_2026_04_21_21_PM.png",
+            "image": "shopify://shop_images/artisan-hero-image.png",
             "image_overlay_opacity": 0,
             "heading": "Where Hands tell Stories",
             "heading_size": "h2",
@@ -65,51 +65,82 @@
         "accessibility_info": "Slideshow about our brand"
       }
     },
-    "category_carousel_BCA9hq": {
-      "type": "category-carousel",
-      "name": "Category Carousel",
-      "settings": {
-        "carousel_tag": "show-in-carousel"
-      }
-    },
-    "collage-0": {
-      "type": "collage",
+    "collection_list_haU3pY": {
+      "type": "collection-list",
       "blocks": {
-        "collection-0": {
-          "type": "collection",
+        "featured_collection_BzJ3M9": {
+          "type": "featured_collection",
           "settings": {
-            "collection": ""
+            "collection": "kitchen-dining"
           }
         },
-        "collection-1": {
-          "type": "collection",
+        "featured_collection_GjVGbV": {
+          "type": "featured_collection",
           "settings": {
-            "collection": ""
+            "collection": "home-decor"
+          }
+        },
+        "featured_collection_K3P9JR": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "lighting"
+          }
+        },
+        "featured_collection_R7frt3": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "puja-spirituality"
+          }
+        },
+        "featured_collection_PXbYdG": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "toys"
+          }
+        },
+        "featured_collection_Dg7LYk": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "gifting"
           }
         }
       },
       "block_order": [
-        "collection-0",
-        "collection-1"
+        "featured_collection_BzJ3M9",
+        "featured_collection_GjVGbV",
+        "featured_collection_K3P9JR",
+        "featured_collection_R7frt3",
+        "featured_collection_PXbYdG",
+        "featured_collection_Dg7LYk"
       ],
-      "disabled": true,
+      "name": "t:sections.collection-list.presets.name",
       "settings": {
-        "heading": "",
+        "title": "Shop by Collection",
         "heading_size": "h2",
-        "desktop_layout": "right",
-        "mobile_layout": "collage",
-        "card_styles": "product-card-wrapper",
-        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "columns_desktop": 6,
+        "color_scheme": "",
+        "show_view_all": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
         "padding_top": 36,
-        "padding_bottom": 0
+        "padding_bottom": 36
+      }
+    },
+    "category_carousel_BCA9hq": {
+      "type": "category-carousel",
+      "disabled": true,
+      "name": "Category Carousel",
+      "settings": {
+        "carousel_tag": "show-in-carousel"
       }
     },
     "featured-collection": {
       "type": "featured-collection",
       "settings": {
         "collection": "all",
-        "products_to_show": 4,
-        "title": "",
+        "products_to_show": 24,
+        "title": "Handpicked for You",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
@@ -118,7 +149,7 @@
         "enable_desktop_slider": false,
         "full_width": false,
         "show_view_all": true,
-        "view_all_style": "solid",
+        "view_all_style": "outline",
         "color_scheme": "scheme-1",
         "image_ratio": "square",
         "image_shape": "default",
@@ -131,12 +162,102 @@
         "padding_top": 40,
         "padding_bottom": 60
       }
+    },
+    "178565279469f41dd6": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_reviews_grid_widget_RmYxPC": {
+          "type": "shopify://apps/judge-me-reviews/blocks/reviews_grid_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "show_sample_reviews": true,
+            "review_selection": "all",
+            "products": [],
+            "filter_pinned": false,
+            "filter_featured": false,
+            "filter_custom_tags": "",
+            "show_media_only": false,
+            "display_order": "media_first",
+            "card_grouping": "per_media",
+            "columns_desktop": 3,
+            "rows_desktop": 3,
+            "columns_mobile": "2",
+            "rows_mobile": 6,
+            "show_stars": true,
+            "show_reviewer_name": true,
+            "show_review_title_on_hover_desktop": true,
+            "max_width": 1100,
+            "corner_styling": "soft",
+            "card_spacing": "medium",
+            "header_text_color": "#000000",
+            "star_and_reviewer_name_color": "#f9f9f9",
+            "drop_shadow_color": "#000000",
+            "overlay_and_background_color": "#000000",
+            "content_color": "#f9f9f9",
+            "header_text": "From our customers",
+            "show_average_rating": true,
+            "rating_display": "default"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_reviews_grid_widget_RmYxPC"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "1785653195f888e442": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_testimonials_carousel_eLMWgk": {
+          "type": "shopify://apps/judge-me-reviews/blocks/testimonials_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "show_sample_reviews": true,
+            "reviews_selection": "all",
+            "products": [],
+            "filter_pinned": false,
+            "filter_featured": false,
+            "filter_custom_tags": "",
+            "star_rating": "all",
+            "max_reviews": 20,
+            "quote_marks_size": "small",
+            "product_name_text_size": "small",
+            "verified_badge_style": "icon",
+            "card_height": "compact",
+            "text_size": "small",
+            "stars_size": "small",
+            "arrows_position": "sides",
+            "max_width": 600,
+            "corner_styling": "soft",
+            "quote_marks_style": "serif",
+            "card_color": "#f9f9f9",
+            "stars_and_quote_marks_color": "#4d1513",
+            "text_color": "#000000",
+            "arrows_color": "#4d1513",
+            "show_border": false,
+            "border_color": "#108474",
+            "show_drop_shadow": true,
+            "transition_speed": 5,
+            "header_text": "Customers are saying",
+            "show_average_rating": true,
+            "rating_display": "show_nothing"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_testimonials_carousel_eLMWgk"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
     "slideshow_GHRQEY",
+    "collection_list_haU3pY",
     "category_carousel_BCA9hq",
-    "collage-0",
-    "featured-collection"
+    "featured-collection",
+    "178565279469f41dd6",
+    "1785653195f888e442"
   ]
 }

@@ -54,10 +54,18 @@
         "padding_top": 12,
         "padding_bottom": 12
       }
+    },
+    "category_carousel_dpJUYN": {
+      "type": "category-carousel",
+      "name": "Category Carousel",
+      "settings": {
+        "carousel_tag": "show-in-carousel"
+      }
     }
   },
   "order": [
     "announcement-bar",
-    "header"
+    "header",
+    "category_carousel_dpJUYN"
   ]
 }
