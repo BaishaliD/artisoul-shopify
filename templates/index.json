@@ -9,8 +9,46 @@
  */
 {
   "sections": {
+    "hero_banner_new": {
+      "type": "hero-banner",
+      "blocks": {
+        "slide_artisan": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/artisan-hero-image.png",
+            "image_alt": "An artisan carving a clay lantern by hand in her workshop"
+          }
+        },
+        "slide_product": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/artisoul-hero-banner.png",
+            "image_alt": "A handcrafted urli filled with fresh flowers, styled in a home"
+          }
+        }
+      },
+      "block_order": [
+        "slide_artisan",
+        "slide_product"
+      ],
+      "settings": {
+        "heading": "Where Hands Tell Stories",
+        "subcopy": "<p>Discover the artistry in every corner of your home — each piece thoughtfully made to celebrate your unique style.</p>",
+        "primary_label": "Shop Collection",
+        "primary_link": "shopify://collections/all",
+        "secondary_label": "Our Story",
+        "secondary_link": "shopify://pages/about-us",
+        "autoplay": true,
+        "change_slides_speed": 5,
+        "fade_duration": 1000,
+        "desktop_ratio": "21 / 10",
+        "mobile_ratio": "4 / 5",
+        "overlay_opacity": 75
+      }
+    },
     "slideshow_GHRQEY": {
       "type": "slideshow",
+      "disabled": true,
       "blocks": {
         "slide_NUHQXy": {
           "type": "slide",
@@ -253,6 +291,7 @@
     }
   },
   "order": [
+    "hero_banner_new",
     "slideshow_GHRQEY",
     "collection_list_haU3pY",
     "category_carousel_BCA9hq",
