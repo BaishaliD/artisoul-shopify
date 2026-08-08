@@ -59,3 +59,11 @@
 .collection-list-view-all {
   margin-top: 2rem;
 }
+
+.collection-list .card .icon-wrap {
+  display: none;
+}
+
+.collection-list .card .card__information {
+  padding: 0;
+}
