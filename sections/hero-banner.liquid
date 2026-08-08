@@ -1,0 +1,395 @@
+{%- comment -%}
+  Hero Banner
+  - Full-bleed hero with a cross-fading image slideshow behind a bottom-left text block
+  - Independent of the stock `slideshow` section: both can live in the theme at once
+  - Slides are blocks, so images/alt stay editable in the customizer
+{%- endcomment -%}
+
+{{ 'section-hero-banner.css' | asset_url | stylesheet_tag }}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap"
+>
+
+{%- liquid
+  assign interval_ms = section.settings.change_slides_speed | times: 1000
+  assign slide_count = section.blocks.size
+-%}
+
+{%- style -%}
+  #hero-banner-{{ section.id }} {
+    --hero-ratio-desktop: {{ section.settings.desktop_ratio }};
+    --hero-ratio-mobile: {{ section.settings.mobile_ratio }};
+    --hero-overlay-bottom: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --hero-fade-duration: {{ section.settings.fade_duration }}ms;
+  }
+{%- endstyle -%}
+
+<section
+  id="hero-banner-{{ section.id }}"
+  class="hero-banner"
+  data-autoplay="{{ section.settings.autoplay }}"
+  data-interval="{{ interval_ms }}"
+  {{ section.shopify_attributes }}
+>
+  <div class="hero-banner__media">
+    {%- if slide_count > 0 -%}
+      {%- for block in section.blocks -%}
+        <div
+          class="hero-banner__slide{% if forloop.first %} is-active{% endif %}"
+          data-index="{{ forloop.index0 }}"
+          aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
+          {{ block.shopify_attributes }}
+        >
+          {%- if block.settings.image != blank -%}
+            {%- assign img = block.settings.image -%}
+            {%- assign img_alt = block.settings.image_alt | default: img.alt | escape -%}
+            <img
+              src="{{ img | image_url: width: 1500 }}"
+              srcset="
+                {{ img | image_url: width: 750 }} 750w,
+                {{ img | image_url: width: 1100 }} 1100w,
+                {{ img | image_url: width: 1500 }} 1500w,
+                {{ img | image_url: width: 1780 }} 1780w,
+                {{ img | image_url: width: 2000 }} 2000w,
+                {{ img | image_url: width: 3000 }} 3000w
+              "
+              sizes="100vw"
+              alt="{{ img_alt }}"
+              width="{{ img.width }}"
+              height="{{ img.height }}"
+              class="hero-banner__image{% if block.settings.mobile_image != blank %} hero-banner__image--desktop{% endif %}"
+              {% if forloop.first %}
+                loading="eager"
+                fetchpriority="high"
+              {% else %}
+                loading="lazy"
+              {% endif %}
+            >
+          {%- else -%}
+            {{ 'hero-apparel-1' | placeholder_svg_tag: 'hero-banner__image hero-banner__placeholder' }}
+          {%- endif -%}
+
+          {%- if block.settings.mobile_image != blank -%}
+            {%- assign m_img = block.settings.mobile_image -%}
+            <img
+              src="{{ m_img | image_url: width: 1100 }}"
+              srcset="
+                {{ m_img | image_url: width: 550 }} 550w,
+                {{ m_img | image_url: width: 750 }} 750w,
+                {{ m_img | image_url: width: 1100 }} 1100w,
+                {{ m_img | image_url: width: 1500 }} 1500w
+              "
+              sizes="100vw"
+              alt="{{ block.settings.image_alt | default: m_img.alt | escape }}"
+              width="{{ m_img.width }}"
+              height="{{ m_img.height }}"
+              class="hero-banner__image hero-banner__image--mobile"
+              {% if forloop.first %}
+                loading="eager"
+                fetchpriority="high"
+              {% else %}
+                loading="lazy"
+              {% endif %}
+            >
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      <div class="hero-banner__slide is-active">
+        {{ 'hero-apparel-1' | placeholder_svg_tag: 'hero-banner__image hero-banner__placeholder' }}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="hero-banner__overlay" aria-hidden="true"></div>
+
+  <div class="hero-banner__content">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="hero-banner__heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subcopy != blank -%}
+      <div class="hero-banner__subcopy">{{ section.settings.subcopy }}</div>
+    {%- endif -%}
+
+    {%- if section.settings.primary_label != blank or section.settings.secondary_label != blank -%}
+      <div class="hero-banner__ctas">
+        {%- if section.settings.primary_label != blank -%}
+          <a
+            class="hero-banner__btn hero-banner__btn--primary"
+            {% if section.settings.primary_link != blank %}
+              href="{{ section.settings.primary_link }}"
+            {% else %}
+              href="{{ routes.all_products_collection_url }}"
+            {% endif %}
+          >
+            {{- section.settings.primary_label | escape -}}
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.secondary_label != blank -%}
+          <a
+            class="hero-banner__btn hero-banner__btn--secondary"
+            {% if section.settings.secondary_link != blank %}
+              href="{{ section.settings.secondary_link }}"
+            {% else %}
+              href="{{ routes.root_url }}"
+            {% endif %}
+          >
+            {{- section.settings.secondary_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- if slide_count > 1 -%}
+    <div class="hero-banner__dots" role="group" aria-label="Choose a slide">
+      {%- for block in section.blocks -%}
+        <button
+          type="button"
+          class="hero-banner__dot{% if forloop.first %} is-active{% endif %}"
+          data-index="{{ forloop.index0 }}"
+          aria-label="Go to slide {{ forloop.index }}"
+          aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+        ></button>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</section>
+
+<script>
+  (function () {
+    var root = document.getElementById('hero-banner-{{ section.id }}');
+    if (!root) return;
+
+    var slides = Array.prototype.slice.call(root.querySelectorAll('.hero-banner__slide'));
+    var dots = Array.prototype.slice.call(root.querySelectorAll('.hero-banner__dot'));
+    if (slides.length < 2) return;
+
+    var interval = parseInt(root.dataset.interval, 10) || 5000;
+    var autoplay = root.dataset.autoplay === 'true';
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var index = 0;
+    var timer = null;
+
+    function go(next) {
+      index = (next + slides.length) % slides.length;
+      slides.forEach(function (slide, n) {
+        var on = n === index;
+        slide.classList.toggle('is-active', on);
+        slide.setAttribute('aria-hidden', on ? 'false' : 'true');
+      });
+      dots.forEach(function (dot, n) {
+        var on = n === index;
+        dot.classList.toggle('is-active', on);
+        dot.setAttribute('aria-current', on ? 'true' : 'false');
+      });
+    }
+
+    function stop() {
+      if (timer) clearInterval(timer);
+      timer = null;
+    }
+
+    function start() {
+      stop();
+      if (!autoplay || reduce.matches) return;
+      timer = setInterval(function () {
+        go(index + 1);
+      }, interval);
+    }
+
+    dots.forEach(function (dot, n) {
+      dot.addEventListener('click', function () {
+        go(n);
+        start();
+      });
+    });
+
+    // Pause while the user is interacting or the tab is hidden
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+    root.addEventListener('focusin', stop);
+    root.addEventListener('focusout', start);
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) stop();
+      else start();
+    });
+    if (reduce.addEventListener) {
+      reduce.addEventListener('change', start);
+    }
+
+    // Theme editor: reveal the slide being edited
+    document.addEventListener('shopify:block:select', function (event) {
+      if (!root.contains(event.target)) return;
+      var slide = event.target.closest('.hero-banner__slide');
+      if (!slide) return;
+      go(parseInt(slide.dataset.index, 10) || 0);
+      stop();
+    });
+    document.addEventListener('shopify:block:deselect', function (event) {
+      if (root.contains(event.target)) start();
+    });
+
+    go(0);
+    start();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "section",
+  "class": "hero-banner-section",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Headline",
+      "default": "Where Hands Tell Stories"
+    },
+    {
+      "type": "richtext",
+      "id": "subcopy",
+      "label": "Subcopy",
+      "default": "<p>Discover the artistry in every corner of your home — each piece thoughtfully made to celebrate your unique style.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button label",
+      "default": "Shop Collection"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button label",
+      "default": "Our Story"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Slideshow"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-advance slides",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "change_slides_speed",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "unit": "s",
+      "label": "Seconds between slides",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "fade_duration",
+      "min": 200,
+      "max": 2000,
+      "step": 100,
+      "unit": "ms",
+      "label": "Cross-fade duration",
+      "default": 1000
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "desktop_ratio",
+      "label": "Desktop aspect ratio",
+      "options": [
+        { "value": "21 / 10", "label": "21:10" },
+        { "value": "16 / 9", "label": "16:9" },
+        { "value": "2 / 1", "label": "2:1" },
+        { "value": "3 / 1", "label": "3:1" }
+      ],
+      "default": "21 / 10"
+    },
+    {
+      "type": "select",
+      "id": "mobile_ratio",
+      "label": "Mobile aspect ratio",
+      "options": [
+        { "value": "4 / 5", "label": "4:5" },
+        { "value": "1 / 1", "label": "1:1" },
+        { "value": "3 / 4", "label": "3:4" }
+      ],
+      "default": "4 / 5"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay darkness at bottom",
+      "default": 75,
+      "info": "Controls legibility of the text over the photo."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile image",
+          "info": "Optional. Falls back to the main image, cropped to the mobile ratio."
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Alt text",
+          "info": "Describes the image for screen readers. Falls back to the image's own alt text."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner",
+      "blocks": [{ "type": "slide" }, { "type": "slide" }]
+    }
+  ]
+}
+{% endschema %}

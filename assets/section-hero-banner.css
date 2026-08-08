@@ -1,0 +1,243 @@
+/*
+ * Hero Banner
+ * Mobile-first. Desktop values from the design spec kick in at 750px.
+ * Custom properties (--hero-ratio-*, --hero-overlay-bottom, --hero-fade-duration)
+ * are set per-section in hero-banner.liquid so customizer settings drive them.
+ */
+
+.hero-banner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--hero-ratio-mobile, 4 / 5);
+  overflow: hidden;
+  isolation: isolate;
+  background-color: #140e0a;
+}
+
+/* ---------- Slides ---------- */
+
+.hero-banner__media {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-banner__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--hero-fade-duration, 1000ms) ease;
+  will-change: opacity;
+}
+
+.hero-banner__slide.is-active {
+  opacity: 1;
+}
+
+.hero-banner__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.hero-banner__placeholder {
+  background-color: #211c15;
+}
+
+/* When a dedicated mobile image exists, swap the two by viewport */
+.hero-banner__image--desktop {
+  display: none;
+}
+
+.hero-banner__image--mobile {
+  display: block;
+}
+
+/* ---------- Overlay ---------- */
+
+.hero-banner__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(20, 14, 10, var(--hero-overlay-bottom, 0.75)) 0%,
+    rgba(20, 14, 10, 0.15) 45%,
+    rgba(20, 14, 10, 0) 70%
+  );
+}
+
+/* ---------- Text block ---------- */
+
+.hero-banner__content {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 32px;
+  max-width: 480px;
+  z-index: 1;
+}
+
+.hero-banner__heading {
+  font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+  font-weight: 600;
+  font-size: 3.2rem;
+  line-height: 1.1;
+  color: #f4ede0;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.hero-banner__subcopy {
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: #ead9be;
+  margin-top: 1.2rem;
+}
+
+.hero-banner__subcopy > p {
+  margin: 0;
+}
+
+.hero-banner__subcopy > p + p {
+  margin-top: 0.8rem;
+}
+
+/* ---------- Buttons ---------- */
+
+.hero-banner__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 2.4rem;
+}
+
+.hero-banner__btn {
+  font-family: var(--font-body-family);
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 14px 28px;
+  border-radius: 3px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.hero-banner__btn:focus-visible {
+  outline: 2px solid #f4ede0;
+  outline-offset: 3px;
+}
+
+.hero-banner__btn--primary {
+  background-color: #f4ede0;
+  color: #211c15;
+  border: 0;
+}
+
+.hero-banner__btn--primary:hover {
+  background-color: #fffaf1;
+}
+
+.hero-banner__btn--secondary {
+  background-color: rgba(244, 237, 224, 0.08);
+  border: 1px solid rgba(244, 237, 224, 0.55);
+  color: #f4ede0;
+}
+
+.hero-banner__btn--secondary:hover {
+  background-color: rgba(244, 237, 224, 0.18);
+  border-color: rgba(244, 237, 224, 0.8);
+}
+
+/* ---------- Dots ---------- */
+
+.hero-banner__dots {
+  position: absolute;
+  right: 24px;
+  bottom: 32px;
+  display: flex;
+  gap: 8px;
+  z-index: 1;
+}
+
+.hero-banner__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: rgba(244, 237, 224, 0.4);
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.hero-banner__dot:hover {
+  background-color: rgba(244, 237, 224, 0.7);
+}
+
+.hero-banner__dot.is-active {
+  background-color: #f4ede0;
+}
+
+.hero-banner__dot:focus-visible {
+  outline: 2px solid #f4ede0;
+  outline-offset: 3px;
+}
+
+/* ---------- Desktop ---------- */
+
+@media screen and (min-width: 750px) {
+  .hero-banner {
+    aspect-ratio: var(--hero-ratio-desktop, 21 / 10);
+  }
+
+  .hero-banner__image--desktop {
+    display: block;
+  }
+
+  .hero-banner__image--mobile {
+    display: none;
+  }
+
+  .hero-banner__content {
+    left: 56px;
+    right: auto;
+    bottom: 48px;
+  }
+
+  .hero-banner__heading {
+    font-size: 4.4rem;
+  }
+
+  .hero-banner__subcopy {
+    font-size: 1.5rem;
+    margin-top: 1.6rem;
+  }
+
+  .hero-banner__ctas {
+    margin-top: 2.8rem;
+  }
+
+  .hero-banner__dots {
+    right: 56px;
+    bottom: 48px;
+  }
+}
+
+/* ---------- Motion preferences ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-banner__slide {
+    transition: none;
+  }
+
+  .hero-banner__btn,
+  .hero-banner__dot {
+    transition: none;
+  }
+}
