@@ -1,0 +1,15 @@
+# Claude Code workspace settings — local to this machine
+.claude/
+
+# Shopify CLI project state (store/theme bindings, auth cache)
+.shopify/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+
+# Dependencies and logs, if tooling is ever added here
+node_modules/
+npm-debug.log*
+yarn-error.log*
