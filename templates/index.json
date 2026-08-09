@@ -11,41 +11,61 @@
   "sections": {
     "category_carousel_BCA9hq": {
       "type": "category-carousel",
-      "name": "Category Carousel",
       "blocks": {
-        "cat_gifting": {
-          "type": "collection",
-          "settings": { "collection": "gifting" }
-        },
         "cat_home_decor": {
           "type": "collection",
-          "settings": { "collection": "home-decor" }
+          "settings": {
+            "collection": "home-decor",
+            "title": ""
+          }
         },
         "cat_kitchen_dining": {
           "type": "collection",
-          "settings": { "collection": "kitchen-dining" }
+          "settings": {
+            "collection": "kitchen-dining",
+            "title": ""
+          }
         },
         "cat_lighting": {
           "type": "collection",
-          "settings": { "collection": "lighting" }
+          "settings": {
+            "collection": "lighting",
+            "title": ""
+          }
         },
         "cat_puja": {
           "type": "collection",
-          "settings": { "collection": "puja-spirituality" }
+          "settings": {
+            "collection": "puja-spirituality",
+            "title": ""
+          }
         },
         "cat_toys": {
           "type": "collection",
-          "settings": { "collection": "toys" }
+          "disabled": true,
+          "settings": {
+            "collection": "toys",
+            "title": ""
+          }
+        },
+        "cat_gifting": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "gifting",
+            "title": ""
+          }
         }
       },
       "block_order": [
-        "cat_gifting",
         "cat_home_decor",
         "cat_kitchen_dining",
         "cat_lighting",
         "cat_puja",
-        "cat_toys"
+        "cat_toys",
+        "cat_gifting"
       ],
+      "name": "Category Carousel",
       "settings": {
         "heading": "",
         "circle_size": 100,
