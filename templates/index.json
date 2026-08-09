@@ -167,7 +167,6 @@
     },
     "category_carousel_BCA9hq": {
       "type": "category-carousel",
-      "disabled": true,
       "name": "Category Carousel",
       "settings": {
         "carousel_tag": "show-in-carousel"
@@ -291,10 +290,10 @@
     }
   },
   "order": [
+    "category_carousel_BCA9hq",
     "hero_banner_new",
     "slideshow_GHRQEY",
     "collection_list_haU3pY",
-    "category_carousel_BCA9hq",
     "featured-collection",
     "178565279469f41dd6",
     "1785653195f888e442"
