@@ -9,6 +9,18 @@
  */
 {
   "sections": {
+    "category_carousel_BCA9hq": {
+      "type": "category-carousel",
+      "name": "Category Carousel",
+      "settings": {
+        "heading": "",
+        "carousel_tag": "show-in-carousel",
+        "circle_size": 100,
+        "gap": 40,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
     "hero_banner_new": {
       "type": "hero-banner",
       "blocks": {
@@ -39,75 +51,50 @@
         "secondary_label": "Our Story",
         "secondary_link": "shopify://pages/about-us",
         "autoplay": true,
-        "change_slides_speed": 5,
+        "change_slides_speed": 3,
         "fade_duration": 1000,
-        "desktop_ratio": "21 / 10",
+        "desktop_ratio": "3 / 1",
         "mobile_ratio": "4 / 5",
         "overlay_opacity": 75
       }
     },
-    "slideshow_GHRQEY": {
-      "type": "slideshow",
-      "disabled": true,
+    "collage_rzWd87": {
+      "type": "collage",
       "blocks": {
-        "slide_NUHQXy": {
-          "type": "slide",
+        "collection_7mrfQp": {
+          "type": "collection",
           "settings": {
-            "image": "shopify://shop_images/artisan-hero-image.png",
-            "image_overlay_opacity": 0,
-            "heading": "Where Hands tell Stories",
-            "heading_size": "h2",
-            "subheading": "Discover the artistry in every corner of your home. Our handcrafted collection brings warmth, color, and soul to your spaces — each piece thoughtfully made to celebrate your unique style.",
-            "button_label": "Shop Collection",
-            "link": "",
-            "button_style_secondary": false,
-            "show_text_box": true,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": ""
+            "collection": "gifting"
           }
         },
-        "slide_mWkRCM": {
-          "type": "slide",
+        "collection_eWtaAJ": {
+          "type": "collection",
           "settings": {
-            "image": "shopify://shop_images/artisoul-hero-banner.png",
-            "image_overlay_opacity": 0,
-            "heading": "Where Hands tell Stories",
-            "heading_size": "h2",
-            "subheading": "Discover the artistry in every corner of your home. Our handcrafted collection brings warmth, color, and soul to your spaces — each piece thoughtfully made to celebrate your unique style.",
-            "button_label": "Shop Collection",
-            "link": "",
-            "button_style_secondary": false,
-            "show_text_box": true,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": ""
+            "collection": "lighting"
+          }
+        },
+        "collection_JXGNkh": {
+          "type": "collection",
+          "settings": {
+            "collection": "toys"
           }
         }
       },
       "block_order": [
-        "slide_NUHQXy",
-        "slide_mWkRCM"
+        "collection_7mrfQp",
+        "collection_eWtaAJ",
+        "collection_JXGNkh"
       ],
-      "name": "t:sections.slideshow.presets.name",
+      "name": "t:sections.collage.presets.name",
       "settings": {
-        "layout": "full_bleed",
-        "slide_height": "medium",
-        "slider_visual": "dots",
-        "auto_rotate": true,
-        "change_slides_speed": 5,
-        "image_behavior": "ambient",
-        "show_text_below": true,
-        "accessibility_info": "Slideshow about our brand"
-      }
-    },
-    "category_carousel_BCA9hq": {
-      "type": "category-carousel",
-      "name": "Category Carousel",
-      "settings": {
-        "carousel_tag": "show-in-carousel"
+        "heading": "",
+        "heading_size": "h2",
+        "desktop_layout": "left",
+        "mobile_layout": "collage",
+        "card_styles": "product-card-wrapper",
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "featured-collection": {
@@ -230,7 +217,7 @@
   "order": [
     "category_carousel_BCA9hq",
     "hero_banner_new",
-    "slideshow_GHRQEY",
+    "collage_rzWd87",
     "featured-collection",
     "178565279469f41dd6",
     "1785653195f888e442"
