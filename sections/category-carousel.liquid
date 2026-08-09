@@ -1,7 +1,9 @@
 {%- comment -%}
-  Dynamic Category Carousel
-  - Automatically pulls in any collection tagged with the value set in section settings
-  - No manual block-adding needed: tag a collection, it shows up here
+  Category Carousel
+  - Collections are chosen explicitly as blocks, so both membership and order
+    are controlled from the customizer rather than inherited from the store
+  - Label and image fall back to the collection's own title/featured image,
+    and can be overridden per block
   - Circular thumbnails with the label beneath; the row centres itself and only
     becomes scrollable (with arrows) when the collections overflow the viewport
 {%- endcomment -%}
@@ -21,32 +23,40 @@
     </button>
 
     <div class="category-carousel-track" id="category-track-{{ section.id }}">
-      {%- assign carousel_tag = section.settings.carousel_tag -%}
-      {%- for collection in collections -%}
-        {% comment %} {%- if collection.tags contains carousel_tag -%} {% endcomment %}
-          <a href="{{ collection.url }}" class="category-carousel-item">
-            <div class="category-carousel-image">
-              {%- if collection.image -%}
-                <img
-                  src="{{ collection.image | image_url: width: 300 }}"
-                  srcset="
-                    {{ collection.image | image_url: width: 150 }} 150w,
-                    {{ collection.image | image_url: width: 300 }} 300w,
-                    {{ collection.image | image_url: width: 450 }} 450w
-                  "
-                  sizes="{{ section.settings.circle_size }}px"
-                  alt="{{ collection.title | escape }}"
-                  loading="lazy"
-                  width="300"
-                  height="300"
-                >
-              {%- else -%}
-                <div class="category-carousel-placeholder"></div>
-              {%- endif -%}
-            </div>
-            <p class="category-carousel-title">{{ collection.title }}</p>
-          </a>
-        {% comment %} {%- endif -%} {% endcomment %}
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign col = block.settings.collection
+          assign label = block.settings.title | default: col.title
+          assign img = block.settings.image | default: col.image
+        -%}
+        <a
+          {% if col != blank %}href="{{ col.url }}"{% endif %}
+          class="category-carousel-item"
+          {{ block.shopify_attributes }}
+        >
+          <div class="category-carousel-image">
+            {%- if img != blank -%}
+              <img
+                src="{{ img | image_url: width: 300 }}"
+                srcset="
+                  {{ img | image_url: width: 150 }} 150w,
+                  {{ img | image_url: width: 300 }} 300w,
+                  {{ img | image_url: width: 450 }} 450w
+                "
+                sizes="{{ section.settings.circle_size }}px"
+                alt="{{ label | escape }}"
+                loading="lazy"
+                width="300"
+                height="300"
+              >
+            {%- else -%}
+              <div class="category-carousel-placeholder"></div>
+            {%- endif -%}
+          </div>
+          {%- if label != blank -%}
+            <p class="category-carousel-title">{{ label }}</p>
+          {%- endif -%}
+        </a>
       {%- endfor -%}
     </div>
 
@@ -315,13 +325,6 @@
       "info": "Leave blank to hide the heading."
     },
     {
-      "type": "text",
-      "id": "carousel_tag",
-      "label": "Collection tag to include",
-      "default": "show-in-carousel",
-      "info": "Only collections with this tag will appear in the carousel. Add this tag to a collection to include it, remove to exclude."
-    },
-    {
       "type": "header",
       "content": "Layout"
     },
@@ -366,9 +369,41 @@
       "default": 40
     }
   ],
+  "max_blocks": 16,
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label",
+          "info": "Optional. Falls back to the collection's own title."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Optional. Falls back to the collection's featured image."
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Category Carousel"
+      "name": "Category Carousel",
+      "blocks": [
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" }
+      ]
     }
   ]
 }

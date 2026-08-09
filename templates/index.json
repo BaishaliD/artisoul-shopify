@@ -12,9 +12,42 @@
     "category_carousel_BCA9hq": {
       "type": "category-carousel",
       "name": "Category Carousel",
+      "blocks": {
+        "cat_gifting": {
+          "type": "collection",
+          "settings": { "collection": "gifting" }
+        },
+        "cat_home_decor": {
+          "type": "collection",
+          "settings": { "collection": "home-decor" }
+        },
+        "cat_kitchen_dining": {
+          "type": "collection",
+          "settings": { "collection": "kitchen-dining" }
+        },
+        "cat_lighting": {
+          "type": "collection",
+          "settings": { "collection": "lighting" }
+        },
+        "cat_puja": {
+          "type": "collection",
+          "settings": { "collection": "puja-spirituality" }
+        },
+        "cat_toys": {
+          "type": "collection",
+          "settings": { "collection": "toys" }
+        }
+      },
+      "block_order": [
+        "cat_gifting",
+        "cat_home_decor",
+        "cat_kitchen_dining",
+        "cat_lighting",
+        "cat_puja",
+        "cat_toys"
+      ],
       "settings": {
         "heading": "",
-        "carousel_tag": "show-in-carousel",
         "circle_size": 100,
         "gap": 40,
         "padding_top": 36,
