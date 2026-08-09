@@ -103,68 +103,6 @@
         "accessibility_info": "Slideshow about our brand"
       }
     },
-    "collection_list_haU3pY": {
-      "type": "collection-list",
-      "blocks": {
-        "featured_collection_BzJ3M9": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "kitchen-dining"
-          }
-        },
-        "featured_collection_GjVGbV": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "home-decor"
-          }
-        },
-        "featured_collection_K3P9JR": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "lighting"
-          }
-        },
-        "featured_collection_R7frt3": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "puja-spirituality"
-          }
-        },
-        "featured_collection_PXbYdG": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "toys"
-          }
-        },
-        "featured_collection_Dg7LYk": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "gifting"
-          }
-        }
-      },
-      "block_order": [
-        "featured_collection_BzJ3M9",
-        "featured_collection_GjVGbV",
-        "featured_collection_K3P9JR",
-        "featured_collection_R7frt3",
-        "featured_collection_PXbYdG",
-        "featured_collection_Dg7LYk"
-      ],
-      "name": "t:sections.collection-list.presets.name",
-      "settings": {
-        "title": "Shop by Collection",
-        "heading_size": "h2",
-        "image_ratio": "square",
-        "columns_desktop": 6,
-        "color_scheme": "",
-        "show_view_all": false,
-        "columns_mobile": "2",
-        "swipe_on_mobile": true,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "category_carousel_BCA9hq": {
       "type": "category-carousel",
       "name": "Category Carousel",
@@ -293,7 +231,6 @@
     "category_carousel_BCA9hq",
     "hero_banner_new",
     "slideshow_GHRQEY",
-    "collection_list_haU3pY",
     "featured-collection",
     "178565279469f41dd6",
     "1785653195f888e442"
