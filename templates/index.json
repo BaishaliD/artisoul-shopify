@@ -92,10 +92,7 @@
           }
         }
       },
-      "block_order": [
-        "slide_artisan",
-        "slide_product"
-      ],
+      "block_order": ["slide_artisan", "slide_product"],
       "settings": {
         "heading": "Where Hands Tell Stories",
         "subcopy": "<p>Discover the artistry in every corner of your home — each piece thoughtfully made to celebrate your unique style.</p>",
@@ -117,19 +114,34 @@
         "collection_7mrfQp": {
           "type": "collection",
           "settings": {
-            "collection": "gifting"
+            "collection": "brass",
+            "title": "The Brass Collection",
+            "link_label": ""
           }
         },
         "collection_eWtaAJ": {
           "type": "collection",
           "settings": {
-            "collection": "lighting"
+            "collection": "terracotta",
+            "title": "Terracotta Tales",
+            "link_label": ""
           }
         },
         "collection_JXGNkh": {
           "type": "collection",
           "settings": {
-            "collection": "toys"
+            "collection": "wood",
+            "title": "Woodcraft",
+            "link_label": ""
+          }
+        },
+        "card_wide": {
+          "type": "card",
+          "settings": {
+            "collection": "dokra",
+            "title": "The Art of Dokra",
+            "link_label": "",
+            "image": "shopify://shop_images/dokra_editorial.png"
           }
         }
       },
@@ -214,9 +226,7 @@
           }
         }
       },
-      "block_order": [
-        "judge_me_reviews_reviews_grid_widget_RmYxPC"
-      ],
+      "block_order": ["judge_me_reviews_reviews_grid_widget_RmYxPC"],
       "settings": {
         "include_margins": true
       }
@@ -259,9 +269,7 @@
           }
         }
       },
-      "block_order": [
-        "judge_me_reviews_testimonials_carousel_eLMWgk"
-      ],
+      "block_order": ["judge_me_reviews_testimonials_carousel_eLMWgk"],
       "settings": {
         "include_margins": true
       }
