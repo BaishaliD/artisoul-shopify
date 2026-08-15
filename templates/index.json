@@ -117,10 +117,10 @@
         "card_featured": {
           "type": "card",
           "settings": {
-            "collection": "lighting",
-            "kicker": "",
-            "title": "",
-            "description": "",
+            "collection": "brass",
+            "kicker": "Craft Story",
+            "title": "Forged in Moradabad : The Brass Edit",
+            "description": "Hand-cast and engraved by artisans in India's renowned Brass City. Shop the pieces finished this season.",
             "link_label": ""
           }
         },
