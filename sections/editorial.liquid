@@ -5,8 +5,9 @@
   - Capped at 4 blocks on purpose. For more cards, stack a second Editorial
     section with the headings left blank and top padding at 0.
   - Fewer than 4 blocks degrades to a full layout rather than leaving holes.
-  - Title falls back to the collection's title; kicker and description never
-    fall back — leave them blank and they simply do not render.
+  - Cards carry a title and an optional link label, nothing else. Nothing falls
+    back to the collection: a blank title renders no text at all, leaving the
+    image to stand on its own. Alt text is the one exception.
   - A card with no image (neither an override nor a collection image) renders
     as a solid card in the theme-wide card colour scheme.
 {%- endcomment -%}
@@ -69,7 +70,11 @@
         {%- liquid
           assign position = forloop.index
           assign col = block.settings.collection
-          assign title = block.settings.title | default: col.title
+          assign title = block.settings.title
+
+          # Alt text still falls back to the collection, since a decorative-looking
+          # empty alt would be wrong on an image that is the card's whole content
+          assign image_alt = block.settings.title | default: col.title
 
           # `col.image` only — `featured_image` silently borrows the first
           # product's photo, which would defeat the solid-card fallback
@@ -104,7 +109,7 @@
                   loading: 'lazy',
                   sizes: sizes,
                   widths: '200, 300, 400, 550, 750, 900, 1100, 1300, 1600',
-                  alt: title
+                  alt: image_alt
               }}
             </div>
             {%- if show_overlay -%}
@@ -113,16 +118,8 @@
           {%- endif -%}
 
           <div class="editorial__content">
-            {%- if block.settings.kicker != blank -%}
-              <p class="editorial__kicker">{{ block.settings.kicker | escape }}</p>
-            {%- endif -%}
-
             {%- if title != blank -%}
               <h3 class="editorial__title">{{ title | escape }}</h3>
-            {%- endif -%}
-
-            {%- if block.settings.description != blank -%}
-              <p class="editorial__text">{{ block.settings.description | escape | newline_to_br }}</p>
             {%- endif -%}
 
             {%- if block.settings.link_label != blank -%}
@@ -248,21 +245,9 @@
         },
         {
           "type": "text",
-          "id": "kicker",
-          "label": "Overline",
-          "info": "Optional. Small uppercase line above the title, e.g. Craft story."
-        },
-        {
-          "type": "text",
           "id": "title",
           "label": "Title",
-          "info": "Optional. Falls back to the collection's own title."
-        },
-        {
-          "type": "textarea",
-          "id": "description",
-          "label": "Description",
-          "info": "Optional. Shown only if filled in — it never falls back to the collection description."
+          "info": "Leave blank for an image-only card."
         },
         {
           "type": "text",
