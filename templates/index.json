@@ -111,6 +111,69 @@
         "overlay_opacity": 75
       }
     },
+    "editorial_shop_material": {
+      "type": "editorial",
+      "blocks": {
+        "card_featured": {
+          "type": "card",
+          "settings": {
+            "collection": "lighting",
+            "kicker": "",
+            "title": "",
+            "description": "",
+            "link_label": ""
+          }
+        },
+        "card_two": {
+          "type": "card",
+          "settings": {
+            "collection": "puja-spirituality",
+            "kicker": "",
+            "title": "",
+            "description": "",
+            "link_label": ""
+          }
+        },
+        "card_three": {
+          "type": "card",
+          "settings": {
+            "collection": "home-decor",
+            "kicker": "",
+            "title": "",
+            "description": "",
+            "link_label": ""
+          }
+        },
+        "card_wide": {
+          "type": "card",
+          "settings": {
+            "collection": "kitchen-dining",
+            "kicker": "",
+            "title": "",
+            "description": "",
+            "link_label": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_featured",
+        "card_two",
+        "card_three",
+        "card_wide"
+      ],
+      "name": "Editorial",
+      "settings": {
+        "eyebrow": "Shop the material",
+        "heading": "Brass, clay, wood, thread",
+        "heading_alignment": "left",
+        "desktop_layout": "left",
+        "image_overlay": 70,
+        "gap": 16,
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
     "collage_rzWd87": {
       "type": "collage",
       "blocks": {
@@ -270,6 +333,7 @@
   "order": [
     "category_carousel_BCA9hq",
     "hero_banner_new",
+    "editorial_shop_material",
     "collage_rzWd87",
     "featured-collection",
     "178565279469f41dd6",

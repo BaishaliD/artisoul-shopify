@@ -1,0 +1,372 @@
+/*
+ * Editorial
+ * A fixed four-slot collage: one featured card beside two small cards and a
+ * wide one. Slots are placed explicitly by `--pos-N`, so the featured card can
+ * swap sides without reordering the DOM and mobile can keep its own 1-2-1
+ * rhythm regardless of the desktop setting.
+ * --editorial-gap and the section padding are set per-section in editorial.liquid.
+ */
+
+.editorial__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 2.4rem;
+}
+
+.editorial--center .editorial__header {
+  align-items: center;
+  text-align: center;
+}
+
+.editorial__eyebrow {
+  font-family: var(--font-body-family);
+  /* Root is 62.5% at the theme's 100 body scale, so 2rem is the 20px asked for */
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(var(--color-brand-light));
+  margin: 0;
+}
+
+.editorial__heading {
+  font-family: var(--font-heading-family);
+  /* Mobile holds the same ~0.68 ratio to desktop the section shipped with */
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  color: rgb(var(--color-brand));
+  margin: 0;
+}
+
+/* ---------- Grid ---------- */
+
+/*
+ * Mobile is the 1-2-1 collage: slot 1 and slot 4 span both columns, slots 2
+ * and 3 share a row. Slot 1 stays first here whatever the desktop side is —
+ * on one column, "featured last" would just bury the lead card.
+ */
+.editorial__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--editorial-gap);
+}
+
+.editorial__card--pos-1,
+.editorial__card--pos-4 {
+  grid-column: 1 / -1;
+}
+
+/* Two cards: nothing to sit beside, so the second one goes full width too */
+.editorial__grid--count-2 .editorial__card--pos-2 {
+  grid-column: 1 / -1;
+}
+
+/* ---------- Cards ---------- */
+
+.editorial__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  border-radius: var(--media-radius, 6px);
+  color: inherit;
+  text-decoration: none;
+  isolation: isolate;
+}
+
+.editorial__card--pos-1 {
+  aspect-ratio: 4 / 5;
+}
+
+.editorial__card--pos-2,
+.editorial__card--pos-3 {
+  aspect-ratio: 1 / 1;
+}
+
+.editorial__card--pos-4 {
+  min-height: 22rem;
+}
+
+/* Solid cards are sized by their copy, not by a ratio — a fixed box would
+   either clip the text or leave a gap under it */
+.editorial__card--solid {
+  aspect-ratio: auto;
+  justify-content: center;
+  min-height: 22rem;
+}
+
+.editorial__media {
+  position: absolute;
+  inset: 0;
+}
+
+.editorial__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.editorial__card--image:hover .editorial__media img {
+  transform: scale(1.04);
+}
+
+/*
+ * Only image cards need the scrim; solid cards get contrast from their scheme.
+ * Four stops rather than three: the extra one near the top keeps the ramp
+ * gradual instead of ending in a visible edge partway up the card.
+ * Alphas come from --editorial-overlay-*, set per-section in editorial.liquid.
+ */
+.editorial__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(20, 14, 10, var(--editorial-overlay-1, 0.7)) 0%,
+    rgba(20, 14, 10, var(--editorial-overlay-2, 0.385)) 42%,
+    rgba(20, 14, 10, var(--editorial-overlay-3, 0.126)) 72%,
+    rgba(20, 14, 10, 0) 100%
+  );
+}
+
+/* Lifted above the media and scrim, which precede it in the DOM */
+.editorial__content {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.editorial__card--solid .editorial__content {
+  padding: 2.8rem;
+}
+
+.editorial__card--image .editorial__kicker {
+  color: rgba(244, 237, 224, 0.75);
+}
+
+.editorial__card--image .editorial__title,
+.editorial__card--image .editorial__text,
+.editorial__card--image .editorial__link {
+  color: #f4ede0;
+}
+
+/* Carries the type over bright detail the flat gradient cannot fully cover —
+   busy highlights like polished brass, where the scrim alone still reads thin */
+.editorial__card--image .editorial__content {
+  text-shadow: 0 1px 12px rgba(20, 14, 10, 0.45);
+}
+
+.editorial__kicker {
+  font-family: var(--font-body-family);
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.6);
+  margin: 0;
+}
+
+.editorial__title {
+  font-family: var(--font-heading-family);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: rgb(var(--color-foreground));
+  margin: 0;
+}
+
+.editorial__card--pos-1 .editorial__title {
+  font-size: 2.8rem;
+}
+
+.editorial__text {
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: rgba(var(--color-foreground), 0.8);
+  margin: 0;
+  /* Clamp rather than let a long description stretch its neighbours' row */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+}
+
+.editorial__card--pos-1 .editorial__text {
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+}
+
+/* A span, not an anchor — the whole card is already the link */
+.editorial__link {
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  line-height: 1.4;
+  color: rgb(var(--color-link));
+  margin-top: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.editorial__link svg {
+  transition: transform 0.25s ease;
+}
+
+.editorial__card:hover .editorial__link svg {
+  transform: translateX(3px);
+}
+
+.editorial__card:focus-visible {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.6);
+  outline-offset: 0.3rem;
+}
+
+/* ---------- Desktop ---------- */
+
+@media screen and (min-width: 750px) {
+  .editorial__header {
+    margin-bottom: 3.2rem;
+  }
+
+  .editorial__heading {
+    font-size: 3.5rem;
+  }
+
+  /*
+   * Three tracks: the featured card takes one wide one, the two small cards
+   * share the rest. Rows stay `auto` so slot 2/3's ratio sets the top row and
+   * slot 4's copy sets the bottom one; the featured card just stretches across.
+   */
+  .editorial__grid {
+    grid-template-columns: 2.2fr 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .editorial__card--pos-1 {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    aspect-ratio: auto;
+    min-height: 52rem;
+  }
+
+  .editorial__card--pos-2 {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .editorial__card--pos-3 {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .editorial__card--pos-4 {
+    grid-column: 2 / span 2;
+    grid-row: 2;
+  }
+
+  /* Featured card on the right: mirror the tracks, keep the DOM order */
+  .editorial__grid--right {
+    grid-template-columns: 1fr 1fr 2.2fr;
+  }
+
+  .editorial__grid--right .editorial__card--pos-1 {
+    grid-column: 3;
+  }
+
+  .editorial__grid--right .editorial__card--pos-2 {
+    grid-column: 1;
+  }
+
+  .editorial__grid--right .editorial__card--pos-3 {
+    grid-column: 2;
+  }
+
+  .editorial__grid--right .editorial__card--pos-4 {
+    grid-column: 1 / span 2;
+  }
+
+  /* Three cards: stack the two secondaries full-width rather than leave a hole */
+  .editorial__grid--count-3 .editorial__card--pos-2,
+  .editorial__grid--count-3 .editorial__card--pos-3 {
+    grid-column: 2 / span 2;
+    aspect-ratio: 3 / 2;
+  }
+
+  .editorial__grid--count-3 .editorial__card--pos-3 {
+    grid-row: 2;
+  }
+
+  /* The ratio above outranks .editorial__card--solid, so restate it here */
+  .editorial__grid--count-3 .editorial__card--solid {
+    aspect-ratio: auto;
+  }
+
+  .editorial__grid--count-3.editorial__grid--right .editorial__card--pos-2,
+  .editorial__grid--count-3.editorial__grid--right .editorial__card--pos-3 {
+    grid-column: 1 / span 2;
+  }
+
+  /* Two cards: the second one fills the whole opposite column */
+  .editorial__grid--count-2 .editorial__card--pos-2 {
+    grid-column: 2 / span 2;
+    grid-row: 1 / span 2;
+    aspect-ratio: auto;
+  }
+
+  .editorial__grid--count-2.editorial__grid--right .editorial__card--pos-2 {
+    grid-column: 1 / span 2;
+  }
+
+  .editorial__grid--count-1 {
+    grid-template-columns: 1fr;
+  }
+
+  .editorial__grid--count-1 .editorial__card--pos-1 {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .editorial__content {
+    padding: 2.8rem;
+  }
+
+  .editorial__card--solid .editorial__content {
+    padding: 4rem;
+  }
+
+  .editorial__title {
+    font-size: 2.2rem;
+  }
+
+  .editorial__card--pos-1 .editorial__title,
+  .editorial__card--solid.editorial__card--pos-4 .editorial__title {
+    font-size: 3.2rem;
+  }
+
+  .editorial__text {
+    font-size: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editorial__media img,
+  .editorial__card--image:hover .editorial__media img,
+  .editorial__link svg,
+  .editorial__card:hover .editorial__link svg {
+    transition: none;
+    transform: none;
+  }
+}

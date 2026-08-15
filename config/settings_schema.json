@@ -98,6 +98,27 @@
           "on_secondary_button": "secondary_button_label",
           "secondary_button_border": "secondary_button_label"
         }
+      },
+      {
+        "type": "header",
+        "content": "Brand palette"
+      },
+      {
+        "type": "paragraph",
+        "content": "Fixed brand colours, available to every section as --color-brand and --color-brand-light. Unlike the schemes above, these stay the same on every surface."
+      },
+      {
+        "type": "color",
+        "id": "brand_primary",
+        "label": "Brand",
+        "default": "#4d1513"
+      },
+      {
+        "type": "color",
+        "id": "brand_primary_light",
+        "label": "Brand light",
+        "info": "A lighter shade of the brand colour, for overlines and secondary text.",
+        "default": "#9b7473"
       }
     ]
   },
