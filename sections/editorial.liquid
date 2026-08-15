@@ -19,20 +19,19 @@
   if section.settings.eyebrow != blank or section.settings.heading != blank
     assign has_header = true
   endif
+
+  # Schema defaults only apply to new instances. A template saved before this
+  # setting existed has no value for it, which would read as falsy and silently
+  # drop the overlay — so treat missing as on and only an explicit false as off.
+  assign show_overlay = true
+  if section.settings.show_image_overlay == false
+    assign show_overlay = false
+  endif
 -%}
 
 {%- style -%}
   #editorial-{{ section.id }} {
     --editorial-gap: {{ section.settings.gap }}px;
-
-    {%- comment -%}
-      The whole overlay ramp scales off one setting, so lowering it thins the
-      gradient evenly instead of just clipping its darkest stop. At 0 every
-      stop is transparent and the overlay is effectively off.
-    {%- endcomment -%}
-    --editorial-overlay-1: {{ section.settings.image_overlay | divided_by: 100.0 }};
-    --editorial-overlay-2: {{ section.settings.image_overlay | times: 0.55 | divided_by: 100.0 }};
-    --editorial-overlay-3: {{ section.settings.image_overlay | times: 0.18 | divided_by: 100.0 }};
   }
 
   .section-{{ section.id }}-padding {
@@ -108,7 +107,9 @@
                   alt: title
               }}
             </div>
-            <div class="editorial__scrim"></div>
+            {%- if show_overlay -%}
+              <div class="editorial__scrim"></div>
+            {%- endif -%}
           {%- endif -%}
 
           <div class="editorial__content">
@@ -187,15 +188,11 @@
       "default": "left"
     },
     {
-      "type": "range",
-      "id": "image_overlay",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "%",
+      "type": "checkbox",
+      "id": "show_image_overlay",
       "label": "Image overlay",
-      "info": "Soft dark shading that fades upward from the bottom of each image card, so the text stays legible. Set to 0 to turn it off.",
-      "default": 70
+      "info": "Dark shading across the bottom of each image card that fades out toward the top, so the text stays legible.",
+      "default": true
     },
     {
       "type": "range",

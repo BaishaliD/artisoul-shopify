@@ -167,7 +167,7 @@
         "heading": "Brass, clay, wood, thread",
         "heading_alignment": "left",
         "desktop_layout": "left",
-        "image_overlay": 70,
+        "show_image_overlay": true,
         "gap": 16,
         "color_scheme": "scheme-1",
         "padding_top": 48,

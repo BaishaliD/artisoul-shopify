@@ -119,20 +119,29 @@
 
 /*
  * Only image cards need the scrim; solid cards get contrast from their scheme.
- * Four stops rather than three: the extra one near the top keeps the ramp
- * gradual instead of ending in a visible edge partway up the card.
- * Alphas come from --editorial-overlay-*, set per-section in editorial.liquid.
+ * Shape matters more than strength here: the bottom fifth is a flat band so
+ * body copy sits on even tone, and the ramp above it covers the title without
+ * ever being darkest right under the text. The extra mid stops are there to
+ * keep the falloff smooth — too few and the ramp bands visibly on gradients.
  */
-.editorial__scrim {
+.editorial__card .editorial__scrim {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  /*
+   * base.css hides every empty div globally via `div:empty { display: none }`,
+   * which outranks a lone class. Scoping to the card wins on specificity —
+   * do not flatten this selector back to `.editorial__scrim`.
+   */
+  display: block;
   background: linear-gradient(
     to top,
-    rgba(20, 14, 10, var(--editorial-overlay-1, 0.7)) 0%,
-    rgba(20, 14, 10, var(--editorial-overlay-2, 0.385)) 42%,
-    rgba(20, 14, 10, var(--editorial-overlay-3, 0.126)) 72%,
-    rgba(20, 14, 10, 0) 100%
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.78) 18%,
+    rgba(0, 0, 0, 0.55) 32%,
+    rgba(0, 0, 0, 0.28) 45%,
+    rgba(0, 0, 0, 0.08) 58%,
+    rgba(0, 0, 0, 0) 70%
   );
 }
 
@@ -160,10 +169,10 @@
   color: #f4ede0;
 }
 
-/* Carries the type over bright detail the flat gradient cannot fully cover —
-   busy highlights like polished brass, where the scrim alone still reads thin */
+/* Backs up the scrim on bright detail like polished brass. Kept subtle — the
+   flat band does most of the work, this only catches the title in the ramp */
 .editorial__card--image .editorial__content {
-  text-shadow: 0 1px 12px rgba(20, 14, 10, 0.45);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
 }
 
 .editorial__kicker {
