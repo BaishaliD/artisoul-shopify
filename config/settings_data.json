@@ -177,6 +177,8 @@
         }
       }
     },
+    "brand_primary": "#4d1513",
+    "brand_primary_light": "#9b7473",
     "color_schemes": {
       "scheme-1": {
         "settings": {

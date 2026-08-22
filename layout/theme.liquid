@@ -124,6 +124,15 @@
       }
 
       :root {
+        {%- comment -%}
+          Brand palette. Global rather than per colour scheme: these are fixed
+          brand values that should read the same wherever they are used, unlike
+          the scheme roles which flip with the surface they sit on.
+          Emitted as RGB triplets so they compose with rgba() for opacity.
+        {%- endcomment -%}
+        --color-brand: {{ settings.brand_primary.red }}, {{ settings.brand_primary.green }}, {{ settings.brand_primary.blue }};
+        --color-brand-light: {{ settings.brand_primary_light.red }}, {{ settings.brand_primary_light.green }}, {{ settings.brand_primary_light.blue }};
+
         --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
         --font-body-style: {{ settings.type_body_font.style }};
         --font-body-weight: {{ settings.type_body_font.weight }};
