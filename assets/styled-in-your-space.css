@@ -186,42 +186,6 @@
   display: none;
 }
 
-/* The incoming slide animates in from the direction of travel. */
-.siys-modal__figure[data-siys-enter='next'] {
-  animation: siys-enter-next 260ms ease-out;
-}
-
-.siys-modal__figure[data-siys-enter='prev'] {
-  animation: siys-enter-prev 260ms ease-out;
-}
-
-@keyframes siys-enter-next {
-  from {
-    opacity: 0;
-    transform: translateX(2.4rem);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes siys-enter-prev {
-  from {
-    opacity: 0;
-    transform: translateX(-2.4rem);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .siys-modal__figure[data-siys-enter] {
-    animation: none;
-  }
-}
 
 .siys-modal__nav {
   flex: none;

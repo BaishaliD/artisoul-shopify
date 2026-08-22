@@ -8,9 +8,6 @@
  * dialog while open and returned to the tile that opened it. On touch, a
  * horizontal swipe across the stage steps the same way.
  *
- * Slide changes animate the incoming figure in from the direction of travel
- * (see the siys-enter-* keyframes); prefers-reduced-motion drops it.
- *
  * Slide images render with the grid tile's 800px URL (a cache hit, so no empty
  * box on open) and carry the 1600px version in data-src. Only the current slide
  * and its two neighbours are upgraded, so a long set doesn't pull every full-
@@ -41,8 +38,8 @@ if (!customElements.get('siys-lightbox')) {
 
         const prev = this.querySelector('[data-siys-prev]');
         const next = this.querySelector('[data-siys-next]');
-        if (prev) prev.addEventListener('click', () => this.go(this.index - 1, 'prev'));
-        if (next) next.addEventListener('click', () => this.go(this.index + 1, 'next'));
+        if (prev) prev.addEventListener('click', () => this.go(this.index - 1));
+        if (next) next.addEventListener('click', () => this.go(this.index + 1));
 
         if (this.slides.length > 1) this.bindSwipe();
 
@@ -86,8 +83,8 @@ if (!customElements.get('siys-lightbox')) {
             start = null;
 
             if (Math.abs(dx) < THRESHOLD || Math.abs(dx) <= Math.abs(dy)) return;
-            if (dx < 0) this.go(this.index + 1, 'next');
-            else this.go(this.index - 1, 'prev');
+            if (dx < 0) this.go(this.index + 1);
+            else this.go(this.index - 1);
           },
           { passive: true }
         );
@@ -113,22 +110,11 @@ if (!customElements.get('siys-lightbox')) {
         removeTrapFocus(this.openedBy);
       }
 
-      /** `direction` is 'next' | 'prev' to animate the new slide in, or omitted on open. */
-      go(index, direction) {
+      go(index) {
         const total = this.slides.length;
         this.index = (index + total) % total;
 
-        this.slides.forEach((slide, i) => {
-          slide.toggleAttribute('hidden', i !== this.index);
-          delete slide.dataset.siysEnter;
-        });
-
-        if (direction) {
-          const current = this.slides[this.index];
-          current.dataset.siysEnter = direction;
-          current.addEventListener('animationend', () => delete current.dataset.siysEnter, { once: true });
-        }
-
+        this.slides.forEach((slide, i) => slide.toggleAttribute('hidden', i !== this.index));
         [this.index - 1, this.index, this.index + 1].forEach((i) => this.load((i + total) % total));
 
         if (this.counter) this.counter.textContent = this.index + 1;
@@ -154,19 +140,19 @@ if (!customElements.get('siys-lightbox')) {
             break;
           case 'ArrowLeft':
             event.preventDefault();
-            this.go(this.index - 1, 'prev');
+            this.go(this.index - 1);
             break;
           case 'ArrowRight':
             event.preventDefault();
-            this.go(this.index + 1, 'next');
+            this.go(this.index + 1);
             break;
           case 'Home':
             event.preventDefault();
-            this.go(0, this.index === 0 ? null : 'prev');
+            this.go(0);
             break;
           case 'End':
             event.preventDefault();
-            this.go(this.slides.length - 1, this.index === this.slides.length - 1 ? null : 'next');
+            this.go(this.slides.length - 1);
             break;
         }
       }
