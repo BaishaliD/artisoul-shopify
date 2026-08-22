@@ -10,8 +10,9 @@
 
   Renders nothing when the metafield is empty.
 
-  Lightbox: uses the theme's existing ModalDialog / ModalOpener custom elements
-  (defined in global.js, loaded on every page). No extra JS needed.
+  Lightbox: one <siys-lightbox> per block holds every entry as a slide, with
+  prev/next buttons, arrow-key navigation and Esc to close. See
+  assets/styled-in-your-space.js.
 {%- endcomment -%}
 
 {%- assign siys_entries = product.metafields.custom.styled_settings.value -%}
@@ -19,6 +20,8 @@
 {%- if siys_entries == blank -%}
   {%- comment -%} No styled settings configured on this product — render nothing {%- endcomment -%}
 {%- else -%}
+
+{%- assign siys_modal_id = 'SiysLightbox-' | append: block.id | append: '-' | append: section.id -%}
 
 <div class="product__accordion accordion quick-add-hidden siys-accordion" {{ block.shopify_attributes }}>
   <details id="Details-{{ block.id }}-{{ section.id }}" open>
@@ -40,59 +43,111 @@
         {%- for siys_item in siys_entries -%}
           {%- assign tile_title   = siys_item.title.value -%}
           {%- assign tile_caption = siys_item.caption.value -%}
-          {%- assign tile_img_url = siys_item.image.value | image_url: width: 800 -%}
-
-          {%- assign modal_id = 'SiysModal-' | append: block.id | append: '-' | append: forloop.index0 -%}
 
           <div class="siys-tile">
             <div class="siys-tile__media">
-              <modal-opener data-modal="#{{ modal_id }}">
-                <button type="button" class="siys-tile__btn" aria-label="{{ tile_title | escape }}">
-                  <img
-                    src="{{ tile_img_url }}"
-                    alt="{{ tile_title | escape }}"
-                    width="800"
-                    height="800"
-                    loading="lazy"
-                    class="siys-tile__img"
-                  >
-                </button>
-              </modal-opener>
+              <button
+                type="button"
+                class="siys-tile__btn"
+                data-siys-open="{{ siys_modal_id }}"
+                data-siys-index="{{ forloop.index0 }}"
+                aria-haspopup="dialog"
+                aria-label="{{ tile_title | escape }}"
+              >
+                <img
+                  src="{{ siys_item.image.value | image_url: width: 800 }}"
+                  alt="{{ tile_title | escape }}"
+                  width="800"
+                  height="800"
+                  loading="lazy"
+                  class="siys-tile__img"
+                >
+              </button>
             </div>
             <p class="siys-tile__title">{{ tile_title }}</p>
             <p class="siys-tile__caption">{{ tile_caption }}</p>
           </div>
-
-          <modal-dialog id="{{ modal_id }}" class="siys-modal">
-            <div role="dialog" tabindex="-1" aria-label="{{ tile_title | escape }}" aria-modal="true">
-              <button
-                id="ModalClose-{{ modal_id }}"
-                type="button"
-                class="siys-modal__close"
-                aria-label="{{ 'accessibility.close' | t }}"
-              >
-                {{- 'icon-close.svg' | inline_asset_content -}}
-              </button>
-              <figure class="siys-modal__figure">
-                <img
-                  src="{{ tile_img_url }}"
-                  alt="{{ tile_title | escape }}"
-                  class="siys-modal__img"
-                  loading="lazy"
-                >
-                <figcaption class="siys-modal__caption">
-                  <p class="siys-modal__title">{{ tile_title }}</p>
-                  <p class="siys-modal__desc">{{ tile_caption }}</p>
-                </figcaption>
-              </figure>
-            </div>
-          </modal-dialog>
-
         {%- endfor -%}
       </div>
 
     </div>
   </details>
 </div>
+
+<siys-lightbox id="{{ siys_modal_id }}" class="siys-modal">
+  <div role="dialog" tabindex="-1" aria-modal="true" aria-label="{{ block.settings.heading | default: 'Styled in Your Space' | escape }}">
+    <button
+      type="button"
+      class="siys-modal__close"
+      data-siys-close
+      aria-label="{{ 'accessibility.close' | t }}"
+    >
+      {{- 'icon-close.svg' | inline_asset_content -}}
+    </button>
+
+    <div class="siys-modal__viewport">
+      {%- if siys_entries.size > 1 -%}
+        <button
+          type="button"
+          class="siys-modal__nav siys-modal__nav--prev"
+          data-siys-prev
+          aria-label="{{ 'sections.slideshow.previous_slideshow' | t }}"
+        >
+          {{- 'icon-caret.svg' | inline_asset_content -}}
+        </button>
+      {%- endif -%}
+
+      <div class="siys-modal__stage">
+        {%- for siys_item in siys_entries -%}
+          {%- assign tile_title   = siys_item.title.value -%}
+          {%- assign tile_caption = siys_item.caption.value -%}
+
+          {%- assign slide_img = siys_item.image.value -%}
+
+          <figure
+            class="siys-modal__figure"
+            data-siys-slide
+            data-siys-label="{{ tile_title | escape }}"
+            {% unless forloop.first %}hidden{% endunless %}
+          >
+            {%- comment -%}
+              src is the same 800px URL the grid tile above already fetched, so
+              the slide paints from cache the moment the modal opens and the
+              width/height attributes reserve the box. data-src is the 1600px
+              upgrade, swapped in by JS for the current slide and its neighbours.
+            {%- endcomment -%}
+            <img
+              src="{{ slide_img | image_url: width: 800 }}"
+              data-src="{{ slide_img | image_url: width: 1600 }}"
+              alt="{{ tile_title | escape }}"
+              width="{{ slide_img.width | default: 1600 }}"
+              height="{{ slide_img.height | default: 1600 }}"
+              class="siys-modal__img"
+            >
+            <figcaption class="siys-modal__caption">
+              <p class="siys-modal__title">{{ tile_title }}</p>
+              <p class="siys-modal__desc">{{ tile_caption }}</p>
+            </figcaption>
+          </figure>
+        {%- endfor -%}
+      </div>
+
+      {%- if siys_entries.size > 1 -%}
+        <button
+          type="button"
+          class="siys-modal__nav siys-modal__nav--next"
+          data-siys-next
+          aria-label="{{ 'sections.slideshow.next_slideshow' | t }}"
+        >
+          {{- 'icon-caret.svg' | inline_asset_content -}}
+        </button>
+
+        <p class="siys-modal__counter" aria-live="polite">
+          <span data-siys-current>1</span> / {{ siys_entries.size }}
+        </p>
+      {%- endif -%}
+    </div>
+  </div>
+</siys-lightbox>
 
 {%- endif -%}

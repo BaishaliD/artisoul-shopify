@@ -28,6 +28,7 @@
   {%- assign siys_blocks = section.blocks | where: 'type', 'styled_in_your_space' -%}
   {%- if siys_blocks.size > 0 -%}
     {{ 'styled-in-your-space.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'styled-in-your-space.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
 
   {% unless product.has_only_default_variant %}
