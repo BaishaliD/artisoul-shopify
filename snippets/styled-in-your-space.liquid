@@ -114,16 +114,20 @@
               src is the same 800px URL the grid tile above already fetched, so
               the slide paints from cache the moment the modal opens and the
               width/height attributes reserve the box. data-src is the 1600px
-              upgrade, swapped in by JS for the current slide and its neighbours.
+              upgrade, swapped in by JS for the current slide and its neighbours,
+              and data-zoom-src is the 2400px version fetched only on first zoom.
             {%- endcomment -%}
-            <img
-              src="{{ slide_img | image_url: width: 800 }}"
-              data-src="{{ slide_img | image_url: width: 1600 }}"
-              alt="{{ tile_title | escape }}"
-              width="{{ slide_img.width | default: 1600 }}"
-              height="{{ slide_img.height | default: 1600 }}"
-              class="siys-modal__img"
-            >
+            <div class="siys-modal__media">
+              <img
+                src="{{ slide_img | image_url: width: 800 }}"
+                data-src="{{ slide_img | image_url: width: 1600 }}"
+                data-zoom-src="{{ slide_img | image_url: width: 2400 }}"
+                alt="{{ tile_title | escape }}"
+                width="{{ slide_img.width | default: 1600 }}"
+                height="{{ slide_img.height | default: 1600 }}"
+                class="siys-modal__img"
+              >
+            </div>
             <figcaption class="siys-modal__caption">
               <p class="siys-modal__title">{{ tile_title }}</p>
               <p class="siys-modal__desc">{{ tile_caption }}</p>

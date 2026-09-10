@@ -11,7 +11,9 @@
   "current": {
     "logo": "shopify://shop_images/logo-tm.jpg",
     "logo_width": 160,
-    "favicon": "shopify://shop_images/artisoul.png",
+    "favicon": "shopify://shop_images/icon-circle.png",
+    "brand_primary": "#4d1513",
+    "brand_primary_light": "#9b7473",
     "type_header_font": "quattrocento_sans_n4",
     "heading_scale": 100,
     "type_body_font": "quattrocento_sans_n4",
@@ -175,10 +177,17 @@
           "product_form_selector": "",
           "custom_css": ""
         }
+      },
+      "15781151713536345247": {
+        "type": "shopify://apps/byteinfy-cod-partial-pay/blocks/codflow-popup/019dab64-5dce-7b3c-8a45-cd623fa9806c",
+        "disabled": false,
+        "settings": {
+          "button_text": "Buy Now",
+          "button_color": "#000000",
+          "button_text_color": "#FFFFFF"
+        }
       }
     },
-    "brand_primary": "#4d1513",
-    "brand_primary_light": "#9b7473",
     "color_schemes": {
       "scheme-1": {
         "settings": {

@@ -250,6 +250,54 @@
     {%- endunless -%}
   {%- endif -%}
 
+  {%- liquid
+    # Schema defaults do not reach a section saved before the setting existed,
+    # so treat a missing value as on and only an explicit false as off.
+    assign show_decor = true
+    if section.settings.decor_enable == false
+      assign show_decor = false
+    endif
+  -%}
+
+  {%- if show_decor -%}
+    <div class="footer__decor" aria-hidden="true">
+      {%- if section.settings.decor_image != blank -%}
+        {{
+          section.settings.decor_image
+          | image_url: width: 3000
+          | image_tag:
+            class: 'footer__decor-image',
+            alt: '',
+            loading: 'lazy',
+            widths: '750, 1100, 1500, 2200, 3000',
+            sizes: '100vw'
+        }}
+      {%- else -%}
+        {%- comment -%}
+          Fallback so the strip renders before anyone picks an image in the
+          editor. Points at the store's own Files upload.
+        {%- endcomment -%}
+        {%- assign decor_url = 'https://cdn.shopify.com/s/files/1/0779/9341/0738/files/footer-transparent.png?v=1789073005' -%}
+        <img
+          class="footer__decor-image"
+          src="{{ decor_url }}&width=3000"
+          srcset="
+            {{ decor_url }}&width=750   750w,
+            {{ decor_url }}&width=1100 1100w,
+            {{ decor_url }}&width=1500 1500w,
+            {{ decor_url }}&width=2200 2200w,
+            {{ decor_url }}&width=3000 3000w
+          "
+          sizes="100vw"
+          width="2400"
+          height="724"
+          alt=""
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
   <div
     class="footer__content-bottom{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
     {% if settings.animations_reveal_on_scroll %}
@@ -319,6 +367,7 @@
       </div>
     </div>
   </div>
+
 </footer>
 
 {% schema %}
@@ -427,6 +476,22 @@
       "type": "header",
       "content": "t:sections.footer.settings.header__1.content",
       "info": "t:sections.footer.settings.header__1.info"
+    },
+    {
+      "type": "header",
+      "content": "Bottom image"
+    },
+    {
+      "type": "checkbox",
+      "id": "decor_enable",
+      "default": true,
+      "label": "Show bottom image",
+      "info": "A full-width decorative strip along the bottom edge of the footer. Use a transparent PNG so the footer colour shows through."
+    },
+    {
+      "type": "image_picker",
+      "id": "decor_image",
+      "label": "Bottom image"
     },
     {
       "type": "checkbox",

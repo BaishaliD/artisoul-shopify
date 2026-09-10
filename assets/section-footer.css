@@ -7,7 +7,6 @@
 }
 
 .footer__content-top {
-  padding-bottom: 5rem;
   display: block;
 }
 
@@ -40,9 +39,12 @@
   }
 }
 
+/*
+  No border and no top padding: the decorative strip above the copyright line
+  does the separating, and the artwork carries its own breathing room.
+*/
 .footer__content-bottom {
-  border-top: solid 0.1rem rgba(var(--color-foreground), 0.08);
-  padding-top: 3rem;
+  border-top: 0;
 }
 
 .footer__content-bottom:only-child {
@@ -505,4 +507,22 @@
       padding-left: 3rem;
     }
   }
+}
+
+/*
+  Decorative strip along the footer's bottom edge. Full bleed: it is a direct
+  child of <footer>, outside the page-width wrappers. A transparent PNG lets
+  the footer colour scheme show through behind the artwork.
+*/
+.footer__decor {
+  /* kills the inline-image baseline gap under the strip */
+  line-height: 0;
+  /* no margin: the artwork's own transparent top band is the gap */
+  margin-top: 0;
+}
+
+.footer__decor-image {
+  display: block;
+  width: 100%;
+  height: auto;
 }

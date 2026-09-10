@@ -50,7 +50,6 @@
         },
         "cat_gifting": {
           "type": "collection",
-          "disabled": true,
           "settings": {
             "collection": "gifting",
             "title": ""
@@ -172,7 +171,7 @@
       "settings": {
         "collection": "all",
         "products_to_show": 24,
-        "title": "Handpicked for You",
+        "title": "Our Products",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
@@ -200,6 +199,7 @@
       "blocks": {
         "judge_me_reviews_reviews_grid_widget_RmYxPC": {
           "type": "shopify://apps/judge-me-reviews/blocks/reviews_grid_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "disabled": true,
           "settings": {
             "show_sample_reviews": true,
             "review_selection": "all",
@@ -270,7 +270,7 @@
             "border_color": "#108474",
             "show_drop_shadow": true,
             "transition_speed": 5,
-            "header_text": "Customers are saying",
+            "header_text": "From our customers",
             "show_average_rating": true,
             "rating_display": "show_nothing"
           }
@@ -279,6 +279,7 @@
       "block_order": [
         "judge_me_reviews_testimonials_carousel_eLMWgk"
       ],
+      "disabled": true,
       "settings": {
         "include_margins": true
       }
