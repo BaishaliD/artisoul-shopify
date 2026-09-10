@@ -1,0 +1,40 @@
+{%- comment -%}
+  Renders a metafield as a human-readable string.
+
+  Handles the four shapes a spec metafield can take:
+    list.metaobject_reference  -> each entry's label, joined
+    metaobject_reference       -> the single entry's label
+    list.<scalar>              -> joined
+    <scalar>                   -> printed as-is
+
+  Metaobject display text comes from the metaobject-label snippet; see the note
+  there about `label` vs. `name`.
+
+  Accepts up to three candidates and uses the first one that is set, which
+  covers custom -> standard fallbacks and taxonomy keys that vary by category:
+    {% render 'metafield-value', mf: product.metafields.custom.color, mf2: product.metafields.shopify['color-pattern'] %}
+{%- endcomment -%}
+{%- liquid
+  assign m = mf
+  if m == blank
+    assign m = mf2
+  endif
+  if m == blank
+    assign m = mf3
+  endif
+  assign t = m.type
+-%}
+{%- if t contains 'metaobject' -%}
+  {%- if t contains 'list.' -%}
+    {%- for entry in m.value -%}
+      {%- render 'metaobject-label', entry: entry -%}
+      {%- unless forloop.last %}, {% endunless -%}
+    {%- endfor -%}
+  {%- else -%}
+    {%- render 'metaobject-label', entry: m.value -%}
+  {%- endif -%}
+{%- elsif t contains 'list.' -%}
+  {{- m.value | join: ', ' -}}
+{%- else -%}
+  {{- m.value -}}
+{%- endif -%}

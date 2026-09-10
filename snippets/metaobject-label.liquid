@@ -1,0 +1,25 @@
+{%- comment -%}
+  Echoes a metaobject entry's display text.
+
+  Shopify's taxonomy metaobjects (the ones behind category metafields such as
+  color-pattern or tableware-material) expose their text as `label` — NOT as
+  `name`, which is what `| map: 'name'` looks for and why that filter returns
+  empty for them. Custom metaobjects vary, so try the common field names in
+  turn and fall back to the handle.
+{%- endcomment -%}
+{%- liquid
+  assign l = entry.label
+  if l == blank
+    assign l = entry.name
+  endif
+  if l == blank
+    assign l = entry.title
+  endif
+  if l == blank
+    assign l = entry.value
+  endif
+  if l == blank
+    assign l = entry.system.handle | replace: '-', ' ' | capitalize
+  endif
+  echo l
+-%}

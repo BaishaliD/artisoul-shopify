@@ -1,31 +1,43 @@
 {%- comment -%}
   Product Specifications accordion block.
-  Reads from product metafields:
-    custom.dimensions, custom.weight, custom.finish
-    shopify.finish, shopify.material, shopify.color-pattern
+  Reads from product metafields. Custom values win; the shopify.* standard and
+  category (taxonomy) metafields are fallbacks. A row is hidden when every
+  source for it is blank.
+    Dimension  custom.dimensions
+    Weight     custom.weight
+    Finish     custom.finish   -> shopify.finish
+    Material   custom.material -> shopify.material -> shopify.tableware-material
+    Color      custom.color    -> shopify.color-pattern
+
+  Value formatting (single vs. list, metaobject vs. scalar) is handled by the
+  metafield-value snippet.
 {%- endcomment -%}
 
 {%- liquid
-  assign dim = product.metafields.custom.dimensions.value
-  if product.metafields.custom.dimensions.type contains 'list.'
-    assign dim = dim | join: ', '
-  endif
+  capture dim
+    render 'metafield-value', mf: product.metafields.custom.dimensions
+  endcapture
+  assign dim = dim | strip
 
-  assign wt = product.metafields.custom.weight.value
-  if product.metafields.custom.weight.type contains 'list.'
-    assign wt = wt | join: ', '
-  endif
+  capture wt
+    render 'metafield-value', mf: product.metafields.custom.weight
+  endcapture
+  assign wt = wt | strip
 
-  assign finish = product.metafields.custom.finish.value
-  if product.metafields.custom.finish.type contains 'list.'
-    assign finish = finish | join: ', '
-  endif
-  if finish == blank
-    assign finish = product.metafields.shopify.finish.value | map: 'name' | join: ', '
-  endif
+  capture finish
+    render 'metafield-value', mf: product.metafields.custom.finish, mf2: product.metafields.shopify.finish
+  endcapture
+  assign finish = finish | strip
 
-  assign material = product.metafields.shopify.material.value | map: 'name' | join: ', '
-  assign color = product.metafields.shopify.color-pattern.value | map: 'name' | join: ', '
+  capture material
+    render 'metafield-value', mf: product.metafields.custom.material, mf2: product.metafields.shopify.material, mf3: product.metafields.shopify['tableware-material']
+  endcapture
+  assign material = material | strip
+
+  capture color
+    render 'metafield-value', mf: product.metafields.custom.color, mf2: product.metafields.shopify['color-pattern']
+  endcapture
+  assign color = color | strip
 
   assign has_specs = false
   if dim != blank or wt != blank or finish != blank or material != blank or color != blank
