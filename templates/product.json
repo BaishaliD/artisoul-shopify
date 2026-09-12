@@ -42,6 +42,22 @@
           "type": "quantity_selector",
           "settings": {}
         },
+        "pal_product_gift_selector_block_qDnbj3": {
+          "type": "shopify://apps/pal/blocks/product-gift-selector-block/2aac8a73-a255-45a0-a21a-d9c31f00526d",
+          "settings": {
+            "giftapp_primary_background": "#F8F1ED",
+            "giftapp_secondary_background": "#F8F1ED",
+            "giftapp_input_field_border": "#818083",
+            "giftapp_rounded_corners": 8,
+            "giftapp_dropdown_image_size": 40,
+            "giftapp_heading_text_color": "#333333",
+            "giftapp_heading_text_size": 14,
+            "giftapp_subheading_text_color": "#666666",
+            "giftapp_subheading_text_size": 10,
+            "giftapp_hint_text_color": "#666666",
+            "giftapp_hint_text_size": 10
+          }
+        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -86,6 +102,7 @@
         "price",
         "variant_picker",
         "quantity_selector",
+        "pal_product_gift_selector_block_qDnbj3",
         "buy_buttons",
         "description",
         "specifications_1",
@@ -94,7 +111,7 @@
         "share"
       ],
       "settings": {
-        "enable_sticky_info": true,
+        "enable_sticky_info": false,
         "color_scheme": "scheme-1",
         "media_size": "medium",
         "constrain_to_viewport": true,
@@ -165,10 +182,10 @@
             "corner_styling": "soft",
             "card_spacing": "medium",
             "header_text_color": "#000000",
-            "star_and_reviewer_name_color": "#F9F9F9",
+            "star_and_reviewer_name_color": "#f9f9f9",
             "drop_shadow_color": "#000000",
-            "overlay_and_background_color": "#FFFFFF",
-            "content_color": "#FFFFFF",
+            "overlay_and_background_color": "#ffffff",
+            "content_color": "#ffffff",
             "header_text": "From our customers",
             "show_average_rating": true,
             "rating_display": "default"

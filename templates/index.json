@@ -67,7 +67,7 @@
       "name": "Category Carousel",
       "settings": {
         "heading": "",
-        "circle_size": 100,
+        "circle_size": 140,
         "gap": 40,
         "padding_top": 36,
         "padding_bottom": 20
